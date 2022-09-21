@@ -13,6 +13,6 @@
 > 当前实例：<font color="info">{{ $alert.Labels.instance }}</font>
 > 当前服务：<font color="info">{{ $alert.Labels.job }}</font>
 > 通知详情：<font color="info">服务已恢复</font>
-> 通知时间：<font color="info">{{ $alert.StartsAt.Format "2006-01-02 15:04:05" }}</font>
+> 恢复时间：<font color="info">{{ $alert.EndsAt.Format "2006-01-02 15:04:05" }}</font>
 {{ end }}
 {{ end }}
