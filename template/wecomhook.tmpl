@@ -1,0 +1,9 @@
+{{ range $i, $alert :=.Alerts }}
+服务日常监测
+> 告警状态：<font color="warning">**{{  .Status }}**</font>
+> 告警级别：<font color="info">{{ $alert.Labels.severity }}</font>
+> 告警主机：<font color="info">{{ $alert.Labels.instance }}</font>
+> 告警服务：<font color="info">{{ $alert.Labels.job }}</font>
+> 告警详情：<font color="info">{{ $alert.Annotations.description }}</font>
+> 告警时间：<font color="info">{{ $alert.StartsAt.Format "2006-01-02 15:04:05" }}</font>
+{{ end }}
