@@ -15,6 +15,8 @@ RUN upx --best main
 FROM alpine:3.8
 MAINTAINER Mysteriousman "gitlab.flmelody.com"
 WORKDIR /root
+RUN apk add --no-cache tzdata
+ENV TZ Asia/Shanghai
 COPY --from=base /build/main /root
 COPY --from=base /build/template /root/template
 CMD ["/root/main"]
