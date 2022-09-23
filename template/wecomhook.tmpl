@@ -1,17 +1,18 @@
+{{ $commonLabels :=.CommonLabels}}
 {{ range $i, $alert :=.Alerts }}
 {{ if eq .Status "firing" }}
-# <font color="warning">服务异常告警</font>
+# <font color="warning">{{ $commonLabels.env }}-服务异常告警</font>
 > 当前状态：<font color="warning">**异常**</font>
 > 异常级别：<font color="warning">{{ $alert.Labels.severity }}</font>
 > 当前实例：<font color="warning">{{ $alert.Labels.instance }}</font>
-> 当前服务：<font color="warning">{{ $alert.Labels.job }}</font>
+> 当前服务：<font color="warning">{{ $alert.Labels.service_id }}</font>
 > 告警详情：<font color="warning">{{ $alert.Annotations.description }}</font>
 > 告警时间：<font color="warning">{{ $alert.StartsAt.Format "2006-01-02 15:04:05" }}</font>
 {{ else }}
-# <font color="info">服务恢复通知</font>
+# <font color="info">{{ $commonLabels.env }}-服务恢复通知</font>
 > 当前状态：<font color="info">**正常**</font>
 > 当前实例：<font color="info">{{ $alert.Labels.instance }}</font>
-> 当前服务：<font color="info">{{ $alert.Labels.job }}</font>
+> 当前服务：<font color="info">{{ $alert.Labels.service_id }}</font>
 > 通知详情：<font color="info">服务已恢复</font>
 > 恢复时间：<font color="info">{{ $alert.EndsAt.Format "2006-01-02 15:04:05" }}</font>
 {{ end }}
