@@ -1,6 +1,6 @@
 # 概述
 
-prometheus alert-manager接入企业微信机器人通知,使用Docker部署;使用HOOK_KEY绑定自己的机器人key
+prometheus alert-manager接入企业微信机器人通知,使用Docker部署,webhook地址http://host:port/webhook;使用HOOK_KEY绑定自己的机器人key.
 ![](process.png)
 
 ### 构建镜像
