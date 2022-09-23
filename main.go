@@ -64,6 +64,10 @@ type Alert struct {
 // Alerts is a list of Alert objects.
 type Alerts []Alert
 
+// time formatter
+func timeFormat(formatter string, ct time.Time) string {
+	return ct.In(time.Local).Format(formatter)
+}
 func main() {
 	http.HandleFunc("/webhook", func(rw http.ResponseWriter, req *http.Request) {
 		// 反序列化请求数据
@@ -73,8 +77,17 @@ func main() {
 			glog.Error(err)
 			return
 		}
+		if rd.Alerts != nil && len(rd.Alerts) > 3 {
+			newAlert := rd.Alerts[0:3]
+			newAlert = append(newAlert, Alert{
+				Status: "other",
+			})
+			rd.Alerts = newAlert
+		}
 		// 加载模板
-		tmpl := template.Must(template.ParseFiles("./template/wecomhook.tmpl"))
+		var tf = make(template.FuncMap)
+		tf["timeFormat"] = timeFormat
+		tmpl := template.Must(template.New("wecomhook.tmpl").Funcs(tf).ParseFiles("./template/wecomhook.tmpl"))
 		var td bytes.Buffer
 		if err := tmpl.Execute(&td, rd); err != nil {
 			glog.Error(err)
