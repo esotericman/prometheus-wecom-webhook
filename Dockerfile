@@ -17,6 +17,7 @@ MAINTAINER Mysteriousman "gitlab.flmelody.com"
 WORKDIR /root
 RUN apk add --no-cache tzdata
 ENV TZ Asia/Shanghai
+ENV HOOK_KEY=default
 COPY --from=base /build/main /root
 COPY --from=base /build/template /root/template
 CMD ["/root/main"]

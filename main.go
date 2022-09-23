@@ -22,6 +22,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"text/template"
 	"time"
 
@@ -30,10 +31,7 @@ import (
 
 //goland:noinspection SpellCheckingInspection
 const (
-	// 机器人key
-	// todo:add key
-	wecomHookKey = "yourKey"
-	wecomHookUrl = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=" + wecomHookKey
+	wecomHookUrl = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s"
 	port         = 6666
 )
 
@@ -101,7 +99,7 @@ func main() {
 			},
 		})
 		responseBody := bytes.NewBuffer(postBody)
-		resp, err := http.Post(wecomHookUrl, "application/json", responseBody)
+		resp, err := http.Post(fmt.Sprintf(wecomHookUrl, os.Getenv("HOOK_KEY")), "application/json", responseBody)
 		if err != nil {
 			glog.Error(err)
 			return

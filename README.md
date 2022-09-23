@@ -1,6 +1,6 @@
 # 概述
 
-prometheus alert-manager接入企业微信机器人通知,使用Docker部署;使用前需要添加自己的wecomHookKey->main.go
+prometheus alert-manager接入企业微信机器人通知,使用Docker部署;使用HOOK_KEY绑定自己的机器人key
 ![](process.png)
 
 ### 构建镜像
@@ -30,7 +30,7 @@ docker load < wecomhook.tar
 ### 启动容器
 
 ```shell
-docker run --name wecomhook -p 6666:6666 -d wecomhook:0.1
+docker run --name wecomhook -e HOOK_KEY=yours -p 6666:6666 -d wecomhook:0.1
 ```
 
 ### 最终效果
